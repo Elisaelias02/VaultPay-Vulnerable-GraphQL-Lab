@@ -335,4 +335,4 @@ vaultpay-lab/
 
 > Lab creado con fines estrictamente educativos. No usar contra sistemas reales.
 
-*Elisa Elias — Cinn4mor0ll | [YouTube](https://youtube.com/@Cinn4mor0ll) | [GitHub](https://github.com/Elisaelias02)*
+*Elisa Elias — Cinn4mor0ll | [YouTube](https://www.youtube.com/@Elisa_Elias) | [GitHub](https://github.com/Elisaelias02)*
