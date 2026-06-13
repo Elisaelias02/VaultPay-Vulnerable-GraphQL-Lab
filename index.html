@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaultPay</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f4f0;--bg2:#fff;--bg3:#f0efe9;--bg4:#e8e6de;--border:#e0ddd4;--text:#1a1814;--text2:#6b6760;--text3:#a8a49c;--accent:#7c3aed;--accent2:#6d28d9;--accent-lt:#ede9fe;--green:#059669;--green-bg:#ecfdf5;--amber:#d97706;--amber-bg:#fffbeb;--red:#dc2626;--red-bg:#fef2f2;--font:'Plus Jakarta Sans',sans-serif;--display:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;}
+.ls{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;}
+.lc{display:grid;grid-template-columns:1fr 400px;width:860px;max-width:99vw;min-height:520px;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.12);}
+.lh{background:linear-gradient(145deg,#1a0533,#4c1d95);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.lh::before{content:'';position:absolute;width:350px;height:350px;background:radial-gradient(circle,rgba(124,58,237,.3),transparent 70%);bottom:-80px;right:-80px;border-radius:50%;}
+.lhz{position:relative;z-index:1;}
+.logo-row{display:flex;align-items:center;gap:10px;margin-bottom:40px;}
+.lm{width:34px;height:34px;background:linear-gradient(135deg,#a78bfa,#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:15px;color:#fff;}
+.lt{font-family:var(--display);font-size:18px;font-weight:700;color:#fff;}
+.hl{font-family:var(--display);font-size:34px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:12px;}
+.hl span{background:linear-gradient(90deg,#a78bfa,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hd{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+.hs{display:flex;gap:24px;}
+.hsv{font-family:var(--display);font-size:18px;font-weight:700;color:#fff;}
+.hsl{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
+.lp{background:var(--bg2);padding:44px 36px;display:flex;flex-direction:column;justify-content:center;}
+.ftitle{font-family:var(--display);font-size:20px;font-weight:700;margin-bottom:4px;}
+.fsub{font-size:12.5px;color:var(--text2);margin-bottom:22px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:10.5px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.field input{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:9px;padding:10px 12px;font-size:13px;color:var(--text);font-family:var(--font);outline:none;transition:border .15s;}
+.field input:focus{border-color:var(--accent);background:#fff;}
+.lbtn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-family:var(--display);font-size:13.5px;font-weight:600;cursor:pointer;margin-top:6px;transition:background .15s;}
+.lbtn:hover{background:var(--accent2);}
+.ltog{text-align:center;margin-top:14px;font-size:12px;color:var(--text3);}
+.ltog span{color:var(--accent);cursor:pointer;font-weight:600;}
+.app{display:flex;min-height:100vh;}
+.sb{width:230px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;}
+.sb-logo{padding:22px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;}
+.sb-lm{width:30px;height:30px;background:linear-gradient(135deg,#a78bfa,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:13px;color:#fff;}
+.sb-ln{font-family:var(--display);font-size:16px;font-weight:700;}
+.sb nav{padding:10px;flex:1;}
+.ns{font-size:9px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--text3);padding:10px 10px 4px;}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--text2);cursor:pointer;transition:all .15s;margin-bottom:1px;font-weight:500;}
+.ni:hover{background:var(--bg3);color:var(--text);}
+.ni.active{background:var(--accent-lt);color:var(--accent);font-weight:600;}
+.sb-foot{padding:12px;border-top:1px solid var(--border);}
+.uc{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;background:var(--bg3);}
+.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
+.un{font-size:12px;font-weight:600;}
+.ue{font-size:10.5px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;}
+.main{margin-left:230px;flex:1;}
+.tb{height:58px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:10px;position:sticky;top:0;z-index:10;}
+.tb-title{font-family:var(--display);font-size:14px;font-weight:700;flex:1;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:600;font-family:var(--font);cursor:pointer;border:none;transition:all .15s;}
+.btn-p{background:var(--accent);color:#fff;}
+.btn-p:hover{background:var(--accent2);}
+.btn-g{background:transparent;color:var(--text2);border:1.5px solid var(--border);}
+.btn-g:hover{background:var(--bg3);color:var(--text);}
+.page{padding:28px;}
+.bh{background:linear-gradient(135deg,#1a0533,#4c1d95);border-radius:18px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;}
+.bh::before{content:'';position:absolute;width:280px;height:280px;background:radial-gradient(circle,rgba(167,139,250,.25),transparent 70%);right:-40px;top:-40px;border-radius:50%;}
+.bl{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:6px;position:relative;z-index:1;}
+.ba{font-family:var(--display);font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1;margin-bottom:18px;position:relative;z-index:1;}
+.bm{display:flex;gap:28px;position:relative;z-index:1;}
+.bml{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.bmv{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.85);}
+.bact{display:flex;gap:9px;margin-top:20px;position:relative;z-index:1;}
+.bb{padding:8px 18px;border-radius:7px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.bb-p{background:rgba(255,255,255,.15);color:#fff;}
+.bb-p:hover{background:rgba(255,255,255,.25);}
+.bb-g{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);}
+.sr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.slb{font-size:10.5px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.sv{font-family:var(--display);font-size:20px;font-weight:700;}
+.ss{font-size:10.5px;color:var(--text3);margin-top:3px;}
+.cg{display:grid;grid-template-columns:1fr 300px;gap:18px;}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.ph{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.pt{font-family:var(--display);font-size:13.5px;font-weight:700;}
+.pa{font-size:11.5px;color:var(--accent);cursor:pointer;font-weight:600;}
+.ti{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer;}
+.ti:last-child{border-bottom:none;}
+.ti:hover{background:var(--bg3);}
+.tic{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;}
+.tic.out{background:var(--red-bg);}
+.tic.in{background:var(--green-bg);}
+.tic.pending{background:var(--amber-bg);}
+.tb2{flex:1;min-width:0;}
+.tn{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tc{font-size:11px;color:var(--text3);margin-top:1px;}
+.tr{text-align:right;flex-shrink:0;}
+.tam{font-family:var(--display);font-size:13.5px;font-weight:700;}
+.tam.out{color:var(--red);}
+.tam.in{color:var(--green);}
+.td{font-size:10.5px;color:var(--text3);margin-top:1px;}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px;}
+.qi{background:var(--bg3);border-radius:9px;padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
+.qi:hover{background:var(--bg4);transform:translateY(-2px);}
+.qi-icon{width:34px;height:34px;border-radius:8px;background:var(--accent-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 7px;}
+.qi-label{font-size:11.5px;font-weight:600;}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;}
+.badge::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;}
+.bg{background:var(--green-bg);color:var(--green);}
+.notif{position:fixed;bottom:20px;right:20px;background:var(--text);border-radius:11px;padding:13px 16px;font-size:12.5px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:200;transform:translateY(60px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);color:#fff;}
+.notif.show{transform:translateY(0);opacity:1;}
+.nt{font-weight:700;margin-bottom:2px;}
+.nb{opacity:.7;font-size:11.5px;}
+</style>
+</head>
+<body>
+
+<div class="ls" id="ls">
+  <div class="lc">
+    <div class="lh">
+      <div class="lhz">
+        <div class="logo-row"><div class="lm">V</div><span class="lt">VaultPay</span></div>
+        <div class="hl">Tu dinero,<br><span>tu control.</span></div>
+        <div class="hd">Pagos instantaneos y transferencias sin comision para Mexico y LATAM.</div>
+      </div>
+      <div class="hs lhz">
+        <div><div class="hsv">+2.4M</div><div class="hsl">Usuarios</div></div>
+        <div><div class="hsv">$0</div><div class="hsl">Comisiones</div></div>
+        <div><div class="hsv">24/7</div><div class="hsl">Disponible</div></div>
+      </div>
+    </div>
+    <div class="lp">
+      <div id="lf">
+        <div class="ftitle">Iniciar sesion</div>
+        <div class="fsub">Ingresa con tu cuenta VaultPay</div>
+        <div class="field"><label>Correo</label><input type="email" id="em" placeholder="tu@correo.com"></div>
+        <div class="field"><label>Contrasena</label><input type="password" id="pw" placeholder="••••••••"></div>
+        <button class="lbtn" id="b-login">Entrar a mi cuenta</button>
+        <div class="ltog">Sin cuenta? <span id="to-reg">Registrate aqui</span></div>
+      </div>
+      <div id="rf" style="display:none">
+        <div class="ftitle">Crear cuenta</div>
+        <div class="fsub">Gratis, menos de 2 minutos</div>
+        <div class="field"><label>Nombre completo</label><input type="text" id="rn" placeholder="Nombre Apellido"></div>
+        <div class="field"><label>Correo</label><input type="email" id="re" placeholder="tu@correo.com"></div>
+        <div class="field"><label>Contrasena</label><input type="password" id="rp" placeholder="••••••••"></div>
+        <div class="field"><label>Telefono</label><input type="text" id="rt" placeholder="5512345678" style="font-family:var(--mono)"></div>
+        <div class="field"><label>CURP</label><input type="text" id="rc" placeholder="XXXX000000XXXXXXXX" style="font-family:var(--mono)"></div>
+        <button class="lbtn" id="b-reg">Crear mi cuenta</button>
+        <div class="ltog">Ya tienes cuenta? <span id="to-log">Inicia sesion</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app" id="app" style="display:none">
+  <div class="sb">
+    <div class="sb-logo"><div class="sb-lm">V</div><span class="sb-ln">VaultPay</span></div>
+    <nav>
+      <div class="ns">Principal</div>
+      <div class="ni active" id="n-dash"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Inicio</div>
+      <div class="ni" id="n-txn"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6"/></svg>Transferencias</div>
+      <div class="ni" id="n-prof"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mi Perfil</div>
+      <div class="ns">Dev</div>
+      <div class="ni" id="n-api"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>GraphQL API</div>
+    </nav>
+    <div class="sb-foot">
+      <div class="uc"><div class="av" id="av">--</div><div style="min-width:0"><div class="un" id="unm">...</div><div class="ue" id="uem">—</div></div></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="tb">
+      <span class="tb-title" id="pg-title">Inicio</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-g" id="b-refresh">Actualizar</button>
+        <button class="btn btn-p" id="b-send">Enviar dinero</button>
+      </div>
+    </div>
+
+    <div class="page" id="pg-dash">
+      <div class="bh">
+        <div class="bl">Saldo disponible</div>
+        <div class="ba"><span style="font-size:22px;opacity:.6">$</span><span id="bal">0.00</span> <span style="font-size:14px;opacity:.5">MXN</span></div>
+        <div class="bm">
+          <div><div class="bml">CLABE</div><div class="bmv" id="clabe">— — —</div></div>
+          <div><div class="bml">Banco</div><div class="bmv" id="banco">—</div></div>
+        </div>
+        <div class="bact">
+          <button class="bb bb-p" id="b-send2">Enviar dinero</button>
+          <button class="bb bb-g" id="b-reload">Recargar</button>
+        </div>
+      </div>
+      <div class="sr">
+        <div class="sc"><div class="slb">Enviado este mes</div><div class="sv" id="s-env">$0</div><div class="ss" id="s-envn">0 transferencias</div></div>
+        <div class="sc"><div class="slb">Recibido este mes</div><div class="sv" id="s-rec">$0</div><div class="ss" id="s-recn">0 transferencias</div></div>
+        <div class="sc"><div class="slb">Estado</div><div class="sv"><span class="badge bg">Activa</span></div><div class="ss">Verificada</div></div>
+      </div>
+      <div class="cg">
+        <div class="panel">
+          <div class="ph"><span class="pt">Movimientos recientes</span><span class="pa" id="b-ver-todos">Ver todos</span></div>
+          <div id="txn-list"><div style="padding:22px;text-align:center;color:var(--text3);font-size:13px">Cargando...</div></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><span class="pt">Acciones rapidas</span></div>
+          <div class="qg">
+            <div class="qi" id="q-send"><div class="qi-icon"><svg width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6"/></svg></div><div class="qi-label">Enviar</div></div>
+            <div class="qi" id="q-req"><div class="qi-icon"><svg width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M10 18l-6-6 6-6"/></svg></div><div class="qi-label">Solicitar</div></div>
+            <div class="qi" id="q-pay"><div class="qi-icon"><svg width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="qi-label">Pagar</div></div>
+            <div class="qi" id="q-prof"><div class="qi-icon"><svg width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div class="qi-label">Perfil</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="pg-txn" style="display:none">
+      <div class="panel" style="max-width:500px">
+        <div class="ph"><span class="pt">Enviar dinero</span></div>
+        <div style="padding:22px">
+          <div class="field"><label>Correo destinatario</label><input type="email" id="t-email" placeholder="destinatario@correo.com"></div>
+          <div class="field"><label>Monto MXN</label><input type="number" id="t-monto" placeholder="0.00" style="font-family:var(--mono)"></div>
+          <div class="field"><label>Concepto</label><input type="text" id="t-concepto" placeholder="Descripcion"></div>
+          <div class="field"><label>PIN de confirmacion</label><input type="password" id="t-pin" placeholder="••••" maxlength="4" style="font-family:var(--mono);letter-spacing:4px;font-size:18px"></div>
+          <button class="lbtn" id="b-confirm-txn" style="background:var(--accent)">Confirmar transferencia</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="pg-prof" style="display:none">
+      <div style="max-width:520px">
+        <div class="panel" style="margin-bottom:14px">
+          <div class="ph"><span class="pt">Mi perfil</span></div>
+          <div id="prof-content" style="padding:6px 0"><div style="padding:18px;text-align:center;color:var(--text3)">Cargando...</div></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><span class="pt">PIN de transferencias</span></div>
+          <div style="padding:22px">
+            <p style="font-size:12.5px;color:var(--text2);margin-bottom:18px;line-height:1.6">Configura tu PIN de 4 digitos para confirmar transferencias.</p>
+            <div class="field"><label>Nuevo PIN</label><input type="password" id="pin1" placeholder="••••" maxlength="4" style="font-family:var(--mono);letter-spacing:6px;font-size:18px;width:110px"></div>
+            <div class="field"><label>Confirmar PIN</label><input type="password" id="pin2" placeholder="••••" maxlength="4" style="font-family:var(--mono);letter-spacing:6px;font-size:18px;width:110px"></div>
+            <button class="btn btn-p" id="b-save-pin">Guardar PIN</button>
+            <div id="pin-msg" style="margin-top:10px;font-size:12px;display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="pg-api" style="display:none">
+      <div class="panel">
+        <div class="ph"><span class="pt">GraphQL API</span></div>
+        <div style="padding:22px">
+          <p style="color:var(--text2);font-size:13px;margin-bottom:14px;line-height:1.6">API GraphQL de VaultPay. Autenticacion via Bearer token.</p>
+          <a href="https://cinn4exif.lat/graphql" target="_blank" class="btn btn-p" style="text-decoration:none">Abrir GraphQL Playground</a>
+          <div style="margin-top:16px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:14px">
+            <div style="font-size:10px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px">Token activo</div>
+            <div id="tok-display" style="font-family:var(--mono);font-size:10px;color:var(--text2);word-break:break-all;line-height:1.7">—</div>
+          </div>
+          <div style="margin-top:10px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:14px">
+            <div style="font-size:10px;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px">User ID</div>
+            <div id="uid-display" style="font-family:var(--mono);font-size:12px;color:var(--text)">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notif" id="notif"><div class="nt" id="n-title"></div><div class="nb" id="n-body"></div></div>
+
+<script>
+var GQL = 'https://cinn4exif.lat/graphql';
+var tok = null;
+var me = null;
+
+function fmt(n) {
+  return new Intl.NumberFormat('es-MX', {minimumFractionDigits:2, maximumFractionDigits:2}).format(n);
+}
+
+function notif(t, b) {
+  document.getElementById('n-title').textContent = t;
+  document.getElementById('n-body').textContent = b;
+  var el = document.getElementById('notif');
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 4000);
+}
+
+function gql(q) {
+  var h = {'Content-Type': 'application/json'};
+  if (tok) h['Authorization'] = 'Bearer ' + tok;
+  return fetch(GQL, {method:'POST', headers:h, body:JSON.stringify({query:q})}).then(function(r) { return r.json(); });
+}
+
+function page(p) {
+  ['dash','txn','prof','api'].forEach(function(x) {
+    document.getElementById('pg-'+x).style.display = x===p ? '' : 'none';
+  });
+  document.querySelectorAll('.ni').forEach(function(el) { el.classList.remove('active'); });
+  var nav = document.getElementById('n-'+p);
+  if (nav) nav.classList.add('active');
+  var titles = {dash:'Inicio', txn:'Transferencias', prof:'Mi Perfil', api:'GraphQL API'};
+  document.getElementById('pg-title').textContent = titles[p] || p;
+  if (p === 'prof') loadProf();
+  if (p === 'api') {
+    document.getElementById('tok-display').textContent = tok || '—';
+    document.getElementById('uid-display').textContent = me ? me.id : '—';
+  }
+}
+
+function showReg() {
+  document.getElementById('lf').style.display = 'none';
+  document.getElementById('rf').style.display = 'block';
+}
+
+function showLog() {
+  document.getElementById('rf').style.display = 'none';
+  document.getElementById('lf').style.display = 'block';
+}
+
+function doLogin() {
+  var e = document.getElementById('em').value;
+  var p = document.getElementById('pw').value;
+  gql('mutation { login(email: "'+e+'", password: "'+p+'") { token usuario { id nombre email saldo clabe banco } } }')
+  .then(function(r) {
+    if (r.errors) { notif('Error', r.errors[0].message); return; }
+    boot(r.data.login.token, r.data.login.usuario);
+  });
+}
+
+function doReg() {
+  var n = document.getElementById('rn').value;
+  var e = document.getElementById('re').value;
+  var p = document.getElementById('rp').value;
+  var t = document.getElementById('rt').value;
+  var c = document.getElementById('rc').value;
+  gql('mutation { registro(nombre: "'+n+'", email: "'+e+'", password: "'+p+'", telefono: "'+t+'", curp: "'+c+'") { token usuario { id nombre email saldo clabe banco } } }')
+  .then(function(r) {
+    if (r.errors) { notif('Error', r.errors[0].message); return; }
+    boot(r.data.registro.token, r.data.registro.usuario);
+    notif('Bienvenido', 'Configura tu PIN en Mi Perfil para realizar transferencias.');
+  });
+}
+
+function boot(t, u) {
+  tok = t;
+  me = u;
+  document.getElementById('ls').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  var n = u.nombre.split(' ');
+  document.getElementById('av').textContent = (n[0][0] + (n[1] ? n[1][0] : '')).toUpperCase();
+  document.getElementById('unm').textContent = u.nombre;
+  document.getElementById('uem').textContent = u.email;
+  loadDash();
+}
+
+function loadDash() {
+  if (!tok || !me) return;
+  gql('{ miPerfil { id nombre email saldo clabe banco } }').then(function(r) {
+    if (r.data && r.data.miPerfil) {
+      var u = r.data.miPerfil;
+      me = Object.assign({}, me, u);
+      document.getElementById('bal').textContent = fmt(u.saldo);
+      document.getElementById('clabe').textContent = (u.clabe||'—').replace(/(\d{3})(\d{3})(\d{11})(\d{1})/, '$1 $2 $3 $4');
+      document.getElementById('banco').textContent = u.banco || '—';
+    }
+  });
+  gql('{ misTransacciones { id emisorId receptorId monto concepto estado fecha referencia } }').then(function(r) {
+    var txns = (r.data && r.data.misTransacciones) ? r.data.misTransacciones : [];
+    var env=0, envn=0, rec=0, recn=0;
+    var now = new Date();
+    txns.forEach(function(t) {
+      var f = new Date(t.fecha);
+      var m = f.getMonth()===now.getMonth() && f.getFullYear()===now.getFullYear();
+      if (t.emisorId===me.id) { if(m){env+=t.monto;envn++;} }
+      else { if(m){rec+=t.monto;recn++;} }
+    });
+    document.getElementById('s-env').textContent = '$'+fmt(env);
+    document.getElementById('s-envn').textContent = envn+' transferencias';
+    document.getElementById('s-rec').textContent = '$'+fmt(rec);
+    document.getElementById('s-recn').textContent = recn+' transferencias';
+    var list = document.getElementById('txn-list');
+    if (!txns.length) { list.innerHTML = '<div style="padding:22px;text-align:center;color:var(--text3);font-size:13px">Sin movimientos aun</div>'; return; }
+    list.innerHTML = txns.slice(0,8).map(function(t) {
+      var out = t.emisorId===me.id;
+      var cls = out?'out':(t.estado==='pendiente'?'pending':'in');
+      var ico = out?'↑':(t.estado==='pendiente'?'⏳':'↓');
+      var fd = new Date(t.fecha).toLocaleDateString('es-MX',{day:'2-digit',month:'short'});
+      return '<div class="ti"><div class="tic '+cls+'">'+ico+'</div><div class="tb2"><div class="tn">'+(t.concepto||'Transferencia')+'</div><div class="tc">'+t.referencia+' · '+t.estado+'</div></div><div class="tr"><div class="tam '+cls+'">'+(out?'-':'+')+' $'+fmt(t.monto)+'</div><div class="td">'+fd+'</div></div></div>';
+    }).join('');
+  });
+}
+
+function doTxn() {
+  var email = document.getElementById('t-email').value;
+  var monto = document.getElementById('t-monto').value;
+  var conc  = document.getElementById('t-concepto').value;
+  var pin   = document.getElementById('t-pin').value;
+  if (!email||!monto||!pin) { notif('Error','Completa todos los campos'); return; }
+  gql('mutation { verifyPin(userId: "'+me.id+'", pin: "'+pin+'") { exitoso token_confirmacion mensaje } }')
+  .then(function(r) {
+    var pr = r.data && r.data.verifyPin;
+    if (!pr||!pr.exitoso) { notif('PIN incorrecto',(pr&&pr.mensaje)||'Verifica tu PIN'); return null; }
+    return gql('mutation { iniciarTransferencia(receptorEmail: "'+email+'", monto: '+monto+', concepto: "'+conc+'", pinToken: "'+pr.token_confirmacion+'") { id monto referencia } }');
+  }).then(function(r) {
+    if (!r) return;
+    if (r.errors) { notif('Error',r.errors[0].message); return; }
+    notif('Enviado','$'+fmt(parseFloat(monto))+' enviados. Ref: '+r.data.iniciarTransferencia.referencia);
+    loadDash();
+  });
+}
+
+function doPin() {
+  var p1 = document.getElementById('pin1').value;
+  var p2 = document.getElementById('pin2').value;
+  var msg = document.getElementById('pin-msg');
+  if (p1.length!==4||!/^\d{4}$/.test(p1)) { msg.style.display='block';msg.style.color='var(--red)';msg.textContent='PIN debe ser 4 digitos numericos.';return; }
+  if (p1!==p2) { msg.style.display='block';msg.style.color='var(--red)';msg.textContent='Los PINs no coinciden.';return; }
+  gql('mutation { configurarPin(pin: "'+p1+'") { exitoso mensaje } }').then(function(r) {
+    if (r.errors) { notif('Error',r.errors[0].message);return; }
+    var res = r.data.configurarPin;
+    msg.style.display='block';
+    msg.style.color = res.exitoso?'var(--green)':'var(--red)';
+    msg.textContent = res.mensaje;
+    if (res.exitoso) { document.getElementById('pin1').value='';document.getElementById('pin2').value='';notif('PIN configurado','Ya puedes realizar transferencias.'); }
+  });
+}
+
+function loadProf() {
+  if (!me) return;
+  gql('{ miPerfil { id nombre email telefono saldo clabe banco fechaRegistro } }').then(function(r) {
+    var u = r.data&&r.data.miPerfil;
+    if (!u) return;
+    var fields = [['Nombre',u.nombre],['Correo',u.email],['Telefono',u.telefono||'—'],['Saldo','$'+fmt(u.saldo)+' MXN'],['CLABE',u.clabe||'—'],['Banco',u.banco||'—'],['Desde',(u.fechaRegistro||'').slice(0,10)],['User ID',u.id]];
+    document.getElementById('prof-content').innerHTML = fields.map(function(f) {
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 20px;border-bottom:1px solid var(--border)"><span style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.3px">'+f[0]+'</span><span style="font-family:'+(f[0]==='CLABE'||f[0]==='User ID'?'var(--mono)':'inherit')+';font-size:12.5px;color:var(--text)">'+f[1]+'</span></div>';
+    }).join('');
+  });
+}
+
+document.getElementById('to-reg').addEventListener('click', showReg);
+document.getElementById('to-log').addEventListener('click', showLog);
+document.getElementById('b-login').addEventListener('click', doLogin);
+document.getElementById('b-reg').addEventListener('click', doReg);
+document.getElementById('b-refresh').addEventListener('click', loadDash);
+document.getElementById('b-send').addEventListener('click', function() { page('txn'); });
+document.getElementById('b-send2').addEventListener('click', function() { page('txn'); });
+document.getElementById('b-reload').addEventListener('click', function() { notif('VaultPay','Recarga disponible en app movil.'); });
+document.getElementById('b-ver-todos').addEventListener('click', function() { page('txn'); });
+document.getElementById('b-confirm-txn').addEventListener('click', doTxn);
+document.getElementById('b-save-pin').addEventListener('click', doPin);
+document.getElementById('n-dash').addEventListener('click', function() { page('dash'); });
+document.getElementById('n-txn').addEventListener('click', function() { page('txn'); });
+document.getElementById('n-prof').addEventListener('click', function() { page('prof'); });
+document.getElementById('n-api').addEventListener('click', function() { page('api'); });
+document.getElementById('q-send').addEventListener('click', function() { page('txn'); });
+document.getElementById('q-req').addEventListener('click', function() { notif('VaultPay','Proximamente.'); });
+document.getElementById('q-pay').addEventListener('click', function() { notif('VaultPay','Disponible en app movil.'); });
+document.getElementById('q-prof').addEventListener('click', function() { page('prof'); });
+document.getElementById('pw').addEventListener('keydown', function(e) { if(e.key==='Enter') doLogin(); });
+</script>
+</body>
+</html>
