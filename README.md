@@ -29,11 +29,11 @@ Esta flexibilidad lo hace muy popular en startups y empresas modernas. El proble
 
 ### Conceptos clave
 
-**Query** — operacion de lectura, equivalente a GET en REST  
-**Mutation** — operacion de escritura, equivalente a POST/PUT/DELETE en REST  
-**Schema** — definicion de todos los tipos, queries y mutations disponibles  
-**Introspection** — mecanismo que permite consultar el schema completo de la API  
-**Aliases** — permite ejecutar la misma operacion multiples veces con nombres distintos en una sola request  
+**Query**: operacion de lectura, equivalente a GET en REST  
+**Mutation**: operacion de escritura, equivalente a POST/PUT/DELETE en REST  
+**Schema**: definicion de todos los tipos, queries y mutations disponibles  
+**Introspection**: mecanismo que permite consultar el schema completo de la API  
+**Aliases**: permite ejecutar la misma operacion multiples veces con nombres distintos en una sola request  
 
 ### Por que GraphQL es vulnerable
 
